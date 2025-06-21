@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from './context/theme-provider';
-import { Moon, Sun } from 'lucide-react';
 import { ModeToggle } from './Theme-toggle';
+import CitySearch from './CitySearch';
 
 const Header = () => {
-  const { theme, setTheme } = useTheme();
-  const isDark = theme === 'dark';
+  //   const { theme, setTheme } = useTheme();
+  //   const isDark = theme === 'dark';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background p-6 shadow-md supports-[backdrop-filter]:bg-background/40 backdrop-blur">
@@ -14,8 +14,10 @@ const Header = () => {
         <Link to="/">
           <h1>WeatherBee</h1>
         </Link>
-        <div>
+        <div className="flex items-center gap-4">
           {/* search */}
+          <CitySearch />
+
           {/* theme */}
           {/* <div
             className={`cursor-pointer transition-transform duration-500 ease-in-out ${
@@ -29,9 +31,8 @@ const Header = () => {
               <Moon className="h-6 w-6 text-gray-500 rotate-0 transition-all " />
             )}
           </div> */}
-          <div>
-            <ModeToggle />
-          </div>
+
+          <ModeToggle />
         </div>
       </div>
     </header>
