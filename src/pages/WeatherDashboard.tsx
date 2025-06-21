@@ -158,9 +158,9 @@ const WeatherDashboard = () => {
           </AlertDescription>
         </Alert>
       )}
-      {!weatherQuery.data && !forecastQuery.data && !locationQuery.data && (
-        <SkeletonComponent />
-      )}
+      {!weatherQuery.data ||
+        !forecastQuery.data ||
+        (!locationQuery.data && <SkeletonComponent />)}
 
       {/* You can render weather info here if coordinates exist */}
       {/* {coordinates && <WeatherInfo coords={coordinates} />} */}
