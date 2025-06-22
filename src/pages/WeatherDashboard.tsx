@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useGeolocation } from '@/hooks/useGeolocation';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { MapPin, RefreshCcw, Terminal } from 'lucide-react';
-import React from 'react';
+
 import {
   useForecastQuery,
   useReverseGeocodeQuery,

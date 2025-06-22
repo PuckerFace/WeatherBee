@@ -1,6 +1,6 @@
 import type { WeatherData } from '@/api/type';
 import { useFavourite } from '@/hooks/useFavourite';
-import React from 'react';
+
 import { Button } from './button';
 import { Star } from 'lucide-react';
 import { toast } from 'sonner';

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Button } from './ui/button';
 import {
   CommandDialog,
@@ -15,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSearchHistory } from '@/hooks/useSearchHistory';
 import { format } from 'date-fns';
 import { useFavourite } from '@/hooks/useFavourite';
+import { useState } from 'react';
 
 const CitySearch = () => {
   const [open, setOpen] = useState(false);

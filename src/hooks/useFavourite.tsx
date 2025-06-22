@@ -136,7 +136,7 @@ export function useFavourite() {
   });
 
   const addFavourites = useMutation<
-    FavouriteCity,
+    FavouriteCity[],
     unknown,
     Omit<FavouriteCity, 'id' | 'addTime'>
   >({
@@ -147,13 +147,13 @@ export function useFavourite() {
         addTime: Date.now(),
       };
 
-      const current = favouritesQuery.data || [];
-      const exists = current.some((f) => f.id === newFav.id);
-      if (exists) return newFav;
+      const existing = favouritesQuery.data || [];
+      const exists = existing.some((f) => f.id === newFav.id);
+      if (exists) return existing;
 
-      const updated = [...current, newFav].slice(0, 10);
+      const updated = [...existing, newFav].slice(0, 10);
       setLocal(updated);
-      return updated;
+      return updated; // ✅ now matches FavouriteCity[] return type
     },
     onSuccess: (updated) => {
       queryClient.setQueryData(['favourites'], updated);

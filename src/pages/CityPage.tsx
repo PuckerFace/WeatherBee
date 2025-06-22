@@ -9,7 +9,6 @@ import WeatherForecast from '@/components/WeatherForecast';
 import { useForecastQuery, useWeatherQuery } from '@/hooks/useWeather';
 import { ArrowLeft, Terminal } from 'lucide-react';
 
-import React from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 const CityPage = () => {
@@ -21,6 +20,9 @@ const CityPage = () => {
   const coordinates = { lat, lon };
   const forecastQuery = useForecastQuery(coordinates);
   const weatherQuery = useWeatherQuery(coordinates);
+  if (!params.cityName) {
+    return <SkeletonComponent />;
+  }
 
   if (weatherQuery.error || forecastQuery.error) {
     return (
@@ -52,9 +54,14 @@ const CityPage = () => {
           {weatherQuery.data?.sys.country}
         </h1>
         <div>
-          <FavouriteButton
-            data={{ ...weatherQuery.data, name: params.cityName }}
-          />
+          {weatherQuery.data && (
+            <FavouriteButton
+              data={{
+                ...weatherQuery.data,
+                name: params.cityName ?? weatherQuery.data.name,
+              }}
+            />
+          )}
         </div>
       </div>
       <div className="grid gap-6">
