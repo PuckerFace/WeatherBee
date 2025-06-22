@@ -7,17 +7,17 @@ import WeatherDetails from '@/components/WeatherDetails';
 import WeatherForecast from '@/components/WeatherForecast';
 
 import { useForecastQuery, useWeatherQuery } from '@/hooks/useWeather';
-import { Terminal } from 'lucide-react';
+import { ArrowLeft, Terminal } from 'lucide-react';
 
 import React from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 const CityPage = () => {
   const [searchParams] = useSearchParams();
   const params = useParams();
   const lat = parseFloat(searchParams.get('lat') || '0');
   const lon = parseFloat(searchParams.get('lon') || '0');
-
+  const navigate = useNavigate();
   const coordinates = { lat, lon };
   const forecastQuery = useForecastQuery(coordinates);
   const weatherQuery = useWeatherQuery(coordinates);
@@ -36,6 +36,14 @@ const CityPage = () => {
 
   return (
     <div className="space-y-6 p-4">
+      <div
+        className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer"
+        onClick={() => navigate('/')}
+        role="button"
+      >
+        <ArrowLeft />
+        Back
+      </div>
       {/* fav cities */}
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-3xl font-bold tracking-tight">

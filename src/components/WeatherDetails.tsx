@@ -50,7 +50,7 @@ const WeatherDetails = ({ data }: WeatherDetailsProps) => {
     },
   ];
   return (
-    <Card>
+    <Card className="shadow-lg border ">
       <CardHeader>
         <CardTitle>Weather Details</CardTitle>
       </CardHeader>

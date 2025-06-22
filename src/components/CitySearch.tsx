@@ -9,18 +9,18 @@ import {
   CommandList,
   CommandSeparator,
 } from './ui/command';
-import { Clock, Loader2, Search, XCircle } from 'lucide-react';
+import { Clock, Loader2, Search, Star, XCircle } from 'lucide-react';
 import { useSearchLocations } from '@/hooks/useWeather';
 import { useNavigate } from 'react-router-dom';
 import { useSearchHistory } from '@/hooks/useSearchHistory';
 import { format } from 'date-fns';
+import { useFavourite } from '@/hooks/useFavourite';
 
 const CitySearch = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const { data: location, isLoading } = useSearchLocations(query);
-  const { searchHistory, clearHistory, addSearchHistory } =
-    useSearchHistory(query);
+  const { searchHistory, clearHistory, addSearchHistory } = useSearchHistory();
   const navigate = useNavigate();
 
   const handleSelect = (value: string) => {
@@ -41,11 +41,12 @@ const CitySearch = () => {
     setOpen(false);
   };
   //   console.log(location);
+  const { favourites } = useFavourite();
 
   return (
     <>
       <Button
-        className="w-full flex justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
+        className=" flex justify-start text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
         variant={'outline'}
         onClick={() => setOpen(true)}
       >
@@ -64,9 +65,28 @@ const CitySearch = () => {
             <CommandEmpty>Hmmm..... does this city exist?</CommandEmpty>
           )}
           {/*   */}
-          {/* <CommandGroup heading="Favourites">
-            <CommandItem>Calendar</CommandItem>
-          </CommandGroup> */}
+          {favourites.length > 0 && (
+            <CommandGroup heading="Favourite Cities">
+              {favourites.map((item) => (
+                <CommandItem
+                  key={item.id}
+                  value={`${item.lat}|${item.lon}|${item.name}|${item.country}`}
+                  onSelect={handleSelect}
+                >
+                  <Star className="mr-2 h-4 w-4 text-amber-500" />
+                  <span>{item.name}</span>
+                  {item.state && (
+                    <span className="text-sm text-muted-foreground">
+                      {item.state}
+                    </span>
+                  )}
+                  <span className="text-sm text-muted-foreground">
+                    , {item.country}
+                  </span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          )}
 
           {searchHistory.length > 0 && (
             <>

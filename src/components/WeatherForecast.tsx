@@ -55,21 +55,21 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
   const nextSevenDays = allDays.slice(1, Math.min(8, allDays.length));
 
   return (
-    <Card>
+    <Card className="shadow-lg  ">
       <CardHeader>
         <CardTitle>5 Day Forecast</CardTitle>
       </CardHeader>
       <CardContent className="p-5">
         <div>
-          <div className="grid  gap-4">
+          <div className="grid    gap-4">
             {nextSevenDays.map((date) => {
               const forecast = dailyForecast[date];
               return (
                 <div
                   key={forecast.date}
-                  className=" border p-4 rounded-lg  shadow"
+                  className="  border p-4 rounded-lg  shadow"
                 >
-                  <div className="grid grid-cols-3 gap-6 justify-between    items-center mb-2 p-4 ">
+                  <div className="grid lg:grid-cols-3 gap-6 justify-between    items-center mb-2 p-4 ">
                     <div className="flex flex-col  justify-center">
                       <h3 className="text-lg  font-semibold">
                         {format(new Date(forecast.date * 1000), 'EEE, MMM d')}
